@@ -12,8 +12,7 @@ let index = {
             email: $("#email").val()
         };
 
-        // ajax default = 비동기 호출
-        // ajax 통신을 통해 3개의 값을 json 으로 변경하여 insert 요청
+        alert(data);
         $.ajax({
             type: "post",
             url: "/api/user",
@@ -26,7 +25,7 @@ let index = {
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
-    },
+    }
 
     login: function(){
             let data = {
