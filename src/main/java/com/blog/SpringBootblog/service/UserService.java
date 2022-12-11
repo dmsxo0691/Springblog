@@ -1,8 +1,10 @@
 package com.blog.SpringBootblog.service;
 
+import com.blog.SpringBootblog.model.RoleType;
 import com.blog.SpringBootblog.model.User;
 import com.blog.SpringBootblog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,13 +14,15 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final BCryptPasswordEncoder encoder;
+
     @Transactional
-    public void join(User user){
+    public void join(User user) {
+        String rawPassword = user.getPassword(); // 비밀번호 원문 삽입
+        String encPassword = encoder.encode(rawPassword); // 해쉬화
+        user.setPassword(encPassword);
+        user.setRole(RoleType.USER);
         userRepository.save(user);
     }
 
-    @Transactional(readOnly = true)
-    public User login(User user) {
-        return userRepository.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-    }
 }
