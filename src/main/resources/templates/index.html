@@ -6,13 +6,31 @@
 
 <div th:replace="layout/bodyHeader :: bodyHeader"></div>
 <div class="container">
-    <div class="card m-2">
-        <div class="card-body">
-            <h4 class="card-title">제목</h4>
-            <p class="card-text">내용</p>
-            <a href="#" class="btn btn-primary">상세보기</a>
+    <div th:each="board:${boards.content}">
+        <div class="card m-2">
+            <div class="card-body">
+                <h4 class="card-title" th:text="${board.title}"></h4>
+            </div>
         </div>
     </div>
+    <ul class="pagination justify-content-center">
+        <div>
+            <div th:if="${boards.first}">
+                <li class="page-item disabled"><a th:href="@{(page=${boards.getNumber()-1})}" class="page-link">이전</a></li>
+            </div>
+            <div th:unless="${boards.first}">
+                <li class="page-item"><a th:href="@{(page=${boards.getNumber()-1})}" class="page-link">이전</a></li>
+            </div>
+        </div>
+        <div>
+            <div th:if="${boards.last}">
+                <li class="page-item disabled"><a th:href="@{(page=${boards.getNumber()+1})}"  class="page-link">다음</a></li>
+            </div>
+            <div th:unless="${boards.last}">
+                <li class="page-item"><a th:href="@{(page=${boards.getNumber()+1})}"  class="page-link">다음</a></li>
+            </div>
+        </div>
+    </ul>
 </div>
 <div th:replace="layout/footer :: footer"></div>
 

@@ -3,6 +3,9 @@ let index = {
         $("#btn-save").on("click", ()=>{
             this.save();
         });
+        $("#btn-delete").on("click", ()=>{
+           this.deleteById();
+        });
     },
 
     save: function(){
@@ -22,6 +25,21 @@ let index = {
             location.href = "/";
         }).fail(function(error){
             alert(JSON.stringify(error));
+        });
+    },
+
+    deleteById: function (){
+        var id = $("#id").text();
+
+        $.ajax({
+           type: "delete",
+           url: "/api/board/"+id,
+           dataType: "json"
+        }).done(function (resp){
+            alert("삭제 완료")
+            location.href = "/";
+        }).fail(function (error){
+            alert(JSON.stringify(error))
         });
     }
 }

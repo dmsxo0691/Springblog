@@ -22,7 +22,7 @@ public class User {
 
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 30, unique = true)
     private String username; // 아이디

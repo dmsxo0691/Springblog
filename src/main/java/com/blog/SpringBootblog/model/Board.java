@@ -20,7 +20,7 @@ public class Board {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 100)
     private String title;
@@ -28,7 +28,6 @@ public class Board {
     @Lob // 대용량 데이터
     private String content; // 섬머노트 라이브러리 <html>태그가 섞임
 
-    @ColumnDefault("0")
     private int count; // 조회수
 
     @ManyToOne(fetch = FetchType.EAGER)

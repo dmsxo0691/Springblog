@@ -25,7 +25,7 @@ import lombok.NoArgsConstructor;
 public class Reply {
     @Id //Primary key
     @GeneratedValue(strategy = GenerationType.IDENTITY) // 프로젝트에서 연결된 DB
-    private int id;
+    private Long id;
 
     @Column(nullable = false, length = 200)
     private String content;
