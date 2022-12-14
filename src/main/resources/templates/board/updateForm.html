@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/header :: header">
+</head>
+<body>
+
+<div th:replace="layout/bodyHeader :: bodyHeader"></div>
+
+<div class="container">
+  <form>
+    <input type="hidden" id="id" th:text="${board.id}">
+    <div class="form-group">
+      <input th:text="${board.title}" type="text" class="form-control" placeholder="제목을 입력하세요" id="title">
+    </div>
+    <div class="form-group">
+      <input th:text="${board.content}" type="text" class="form-control" placeholder="제목을 입력하세요" id="content">
+    </div>
+  </form>
+  <button id="btn-update" class="btn btn-primary">수정 완료</button>
+</div>
+
+<div th:replace="layout/footer :: footer"></div>
+<script>
+  $('.summernote').summernote({
+    tabsize: 2,
+    height: 300
+  });
+</script>
+<script src="/js/board.js"></script>
+
+</body>
+</html>

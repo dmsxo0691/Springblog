@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:replace="layout/header :: header">
 </head>
 <body>
@@ -7,11 +7,8 @@
 <div th:replace="layout/bodyHeader :: bodyHeader"></div>
 
 <div class="container">
-  <button class="btn btn-secondary" onclick="history.back()">돌아가기</button>
-  <button id="btn-update" class="btn btn-warning">수정</button>
-  <div  th:if="${board.user.id == principal.username}">
-    <button id="btn-delete" class="btn btn-danger">삭제</button>
-  </div>
+  <a class="btn btn-secondary" href="/">돌아가기</a>
+
   <br><br>
   <div>
     글 번호 : <span id="id"><i th:text="${board.id}"></i></span>
@@ -23,10 +20,14 @@
   </div>
   <hr>
   <div>
-    <div th:text="${board.content}"></div>
+    <div th:utext="${board.content}"></div>
+  </div>
+  <hr>
+  <div th:if="${board.user.username == #authentication.principal.username}">
+    <a th:href="@{/board/{id}/updateForm(id=${board.id})}" class="btn btn-warning">수정</a>
+    <button id="btn-delete" class="btn btn-danger">삭제</button>
   </div>
 </div>
-
 <div th:replace="layout/footer :: footer"></div>
 
 <script src="/js/board.js"></script>
