@@ -25,10 +25,10 @@ public class BoardApiController {
     }
 
     @DeleteMapping("/api/board/{id}")
-    public ResponseDto<Long> deleteById(@PathVariable Long id){
+    public ResponseDto<Integer> deleteById(@PathVariable Long id){
         boardService.deleteWrite(id);
 
-        return new ResponseDto<Long>(HttpStatus.OK.value(), 1L);
+        return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 
     @PutMapping("/api/board/{id}")

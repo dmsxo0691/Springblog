@@ -47,17 +47,17 @@ let index = {
     },
 
     update: function () {
-        let id = $('#id').val();
+        let id = $("#id").val();
 
-        let date = {
+        let data = {
             title: $("#title").val(),
             content: $("#content").val()
         };
 
         $.ajax({
             type: "put",
-            url: "api/board/" + id,
-            date: JSON.stringify(data),
+            url: "/api/board/" + id,
+            data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
         }).done(function (resp) {
