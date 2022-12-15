@@ -46,7 +46,7 @@ let index = {
         });
     },
 
-    update: function () {
+    update: function(){
         let id = $("#id").val();
 
         let data = {
@@ -55,18 +55,18 @@ let index = {
         };
 
         $.ajax({
-            type: "put",
-            url: "/api/board/" + id,
+            type: "PUT",
+            url: "/api/board/"+id,
             data: JSON.stringify(data),
             contentType: "application/json; charset=utf-8",
             dataType: "json"
-        }).done(function (resp) {
+        }).done(function(resp){
             alert("수정 완료");
             location.href = "/";
-        }).fail(function (error){
+        }).fail(function(error){
             alert(JSON.stringify(error));
         });
-    }
+    },
 }
 
 index.init();
