@@ -25,4 +25,15 @@ public class UserService {
         userRepository.save(user);
     }
 
+    @Transactional
+    public void updateUser(User user) {
+        User persistence = userRepository.findById(user.getId()).orElseThrow(()->{
+            return new IllegalArgumentException("회원 찾기 실패");
+        });
+        String rawPassword = user.getPassword();
+        String encPassword = encoder.encode(rawPassword);
+        persistence.setPassword(encPassword);
+        persistence.setEmail(user.getEmail());
+        persistence.setUsername(user.getUsername());
+    }
 }

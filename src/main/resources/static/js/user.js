@@ -3,6 +3,9 @@ let index = {
         $("#btn-save").on("click", ()=>{ // function(){} -> ()=>{} : this 를 바인딩하기 위해 사용
             this.save();
         });
+        $("#btn-update").on("click", ()=>{
+            this.update()
+        })
     },
 
     save: function(){
@@ -24,7 +27,29 @@ let index = {
         }).fail(function(error){
             alert(JSON.stringify(error));
         });
-    }
+    },
+
+    update: function (){
+        let data = {
+            id: $("#id").val(),
+            username: $("#username").val(),
+            password: $("#password").val(),
+            email: $("#email").val()
+        };
+
+        $.ajax({
+            type: "put",
+            url: "/user",
+            data: JSON.stringify(data),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (resp){
+            alert("회원 수정 완료");
+            location.href = "/";
+        }).fail(function (error){
+            alert(JSON.stringify(error));
+        });
+    },
 }
 
 index.init();

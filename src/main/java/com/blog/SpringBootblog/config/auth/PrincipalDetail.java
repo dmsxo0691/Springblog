@@ -1,14 +1,14 @@
 package com.blog.SpringBootblog.config.auth;
 
 import com.blog.SpringBootblog.model.User;
-import lombok.Getter;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Getter
+@Data
 public class PrincipalDetail implements UserDetails {
     private User user;
 
@@ -26,6 +26,10 @@ public class PrincipalDetail implements UserDetails {
     public String getUsername() {
         return user.getUsername();
     }
+
+    public Long getId() {return user.getId();}
+
+    public String getEmail() {return user.getEmail();}
 
     //계정 만료 여부 반환
     @Override
