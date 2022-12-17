@@ -28,6 +28,9 @@ public class PrincipalDetail implements UserDetails {
     }
 
     public Long getId() {return user.getId();}
+    public String getOauth(){
+        return user.getOauth();
+    }
 
     public String getEmail() {return user.getEmail();}
 

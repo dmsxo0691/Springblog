@@ -24,7 +24,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 30, unique = true)
+    @Column(nullable = false, length = 100, unique = true)
     private String username; // 아이디
 
     @Column(nullable = false, length = 100) //
@@ -35,6 +35,8 @@ public class User {
 
     @Enumerated(EnumType.STRING) //String타입으로 항상 설정
     private RoleType role;
+
+    private String oauth;
 
     @CreationTimestamp
     private LocalDateTime createDate;

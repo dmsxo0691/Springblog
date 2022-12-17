@@ -16,6 +16,14 @@ public class UserService {
 
     private final BCryptPasswordEncoder encoder;
 
+    @Transactional(readOnly = true)
+    public User findUser(String username) {
+        User user = userRepository.findByUsername(username).orElseGet(() -> {
+            return new User();
+        });
+        return user;
+    }
+
     @Transactional
     public void join(User user) {
         String rawPassword = user.getPassword(); // 비밀번호 원문 삽입
@@ -27,13 +35,15 @@ public class UserService {
 
     @Transactional
     public void updateUser(User user) {
-        User persistence = userRepository.findById(user.getId()).orElseThrow(()->{
+        User persistence = userRepository.findById(user.getId()).orElseThrow(() -> {
             return new IllegalArgumentException("회원 찾기 실패");
         });
-        String rawPassword = user.getPassword();
-        String encPassword = encoder.encode(rawPassword);
-        persistence.setPassword(encPassword);
-        persistence.setEmail(user.getEmail());
-        persistence.setUsername(user.getUsername());
+        if (persistence.getOauth() == null || persistence.getOauth().equals("")) {
+            String rawPassword = user.getPassword();
+            String encPassword = encoder.encode(rawPassword);
+            persistence.setPassword(encPassword);
+            persistence.setEmail(user.getEmail());
+            persistence.setUsername(user.getUsername());
+        }
     }
 }

@@ -7,18 +7,22 @@
 <div th:replace="layout/bodyHeader :: bodyHeader"></div>
 <div class="container">
     <form>
-        <input type="hidden" id="id" th:value="${#authentication.principal.getId()}" >
+        <input type="hidden" id="id" th:value="${#authentication.principal.getId()}">
         <div class="form-group">
             <label for="username">아이디:</label>
-            <input th:value="${#authentication.principal.getUsername()}" type="text" class="form-control" id="username" placeholder="아이디를 입력하세요">
+            <input th:value="${#authentication.principal.getUsername()}" type="text" class="form-control" id="username"
+                   placeholder="아이디를 입력하세요" readonly>
         </div>
-        <div class="form-group">
-            <label for="password">비밀번호:</label>
-            <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="password">
+        <div th:if="${#strings.isEmpty(#authentication.principal.getOauth())}">
+            <div class="form-group">
+                <label for="password">비밀번호:</label>
+                <input type="password" class="form-control" placeholder="비밀번호를 입력하세요" id="password">
+            </div>
         </div>
         <div class="form-group">
             <label for="email">이메일:</label>
-            <input th:value="${#authentication.principal.getEmail()}" type="email" class="form-control"  placeholder="이메일을 입력하세요" id="email">
+            <input th:value="${#authentication.principal.getEmail()}" type="email" class="form-control"
+                   placeholder="이메일을 입력하세요" id="email" readonly>
         </div>
     </form>
     <button id="btn-update" class="btn btn-primary">수정</button>
