@@ -25,12 +25,17 @@ public class UserService {
     }
 
     @Transactional
-    public void join(User user) {
+    public int join(User user) {
         String rawPassword = user.getPassword(); // 비밀번호 원문 삽입
         String encPassword = encoder.encode(rawPassword); // 해쉬화
         user.setPassword(encPassword);
         user.setRole(RoleType.USER);
-        userRepository.save(user);
+        try {
+            userRepository.save(user);
+            return 1;
+        } catch (Exception e) {
+            return -1;
+        }
     }
 
     @Transactional
