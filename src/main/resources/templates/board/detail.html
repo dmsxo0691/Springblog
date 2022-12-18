@@ -30,7 +30,8 @@
 
     <div class="card">
         <form>
-          <input type="hidden" id="boardId" th:value="${board.id}">
+            <input type="hidden" id="userId" th:value="${#authentication.principal.id}">
+            <input type="hidden" id="boardId" th:value="${board.id}">
             <div class="card-body">
                 <textarea id="reply-content" class="form-control" rows="1"></textarea>
             </div>
@@ -44,12 +45,12 @@
     <div class="card">
         <div class="card-header">댓글 리스트</div>
         <ul id="reply-box" class="list-group" th:each="reply:${board.replyList}">
-            <li  class="list-group-item d-flex justify-content-between">
+            <li class="list-group-item d-flex justify-content-between">
                 <div th:text="${reply.content}"></div>
                 <div class="d-flex">
                     <div class="font-italic" th:text="'작성자 : ' + ${reply.user.username}+ '&nbsp;'"></div>
                     <div th:if="${reply.user.id} == ${#authentication.principal.id}">
-                    <button th:onclick="|index.replyDelete(${board.id},${reply.id})|" class="badge">삭제</button>
+                        <button th:onclick="|index.replyDelete(${board.id},${reply.id})|" class="badge">삭제</button>
                     </div>
                 </div>
             </li>

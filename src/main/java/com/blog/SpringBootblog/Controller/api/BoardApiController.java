@@ -1,6 +1,7 @@
 package com.blog.SpringBootblog.Controller.api;
 
 import com.blog.SpringBootblog.config.auth.PrincipalDetail;
+import com.blog.SpringBootblog.dto.ReplySaveRequestDto;
 import com.blog.SpringBootblog.dto.ResponseDto;
 import com.blog.SpringBootblog.model.Board;
 import com.blog.SpringBootblog.model.Reply;
@@ -42,9 +43,9 @@ public class BoardApiController {
     }
 
     @PostMapping("/api/board/{boardId}/reply")
-    public ResponseDto<Integer> replySave(@PathVariable Long boardId, @RequestBody Reply reply, @AuthenticationPrincipal PrincipalDetail principal) {
+    public ResponseDto<Integer> replySave(@RequestBody ReplySaveRequestDto replySaveRequestDto) {
 
-        boardService.writeReply(principal.getUser(), boardId, reply);
+        boardService.writeReply(replySaveRequestDto);
         return new ResponseDto<Integer>(HttpStatus.OK.value(), 1);
     }
 

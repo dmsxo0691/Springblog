@@ -1,5 +1,6 @@
 package com.blog.SpringBootblog.service;
 ;
+import com.blog.SpringBootblog.dto.ReplySaveRequestDto;
 import com.blog.SpringBootblog.model.Board;
 import com.blog.SpringBootblog.model.Reply;
 import com.blog.SpringBootblog.model.User;
@@ -57,16 +58,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void writeReply(User user, Long boardId, Reply requestReply) {
-
-        Board board = boardRepository.findById(boardId).orElseThrow(()->{
-            return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
-        }); // 영속화 완료;
-
-        requestReply.setUser(user);
-        requestReply.setBoard(board);
-
-        replyRepository.save(requestReply);
+    public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
+        int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
+        System.out.println("BoardService : "+result);
     }
 
     @Transactional
