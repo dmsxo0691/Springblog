@@ -1,7 +1,6 @@
 package com.blog.SpringBootblog.service;
 
 ;
-import com.blog.SpringBootblog.dto.ReplySaveRequestDto;
 import com.blog.SpringBootblog.model.Board;
 import com.blog.SpringBootblog.model.Reply;
 import com.blog.SpringBootblog.model.User;
@@ -10,7 +9,6 @@ import com.blog.SpringBootblog.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,8 +58,7 @@ public class BoardService {
 
     @Transactional
     public void writeReply(User user, Long boardId, Reply requestReply) {
-
-        Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+        Board board = boardRepository.findById(boardId).orElseThrow(()->{
             return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
         }); // 영속화 완료;
 

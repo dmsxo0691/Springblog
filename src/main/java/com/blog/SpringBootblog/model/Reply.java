@@ -41,10 +41,5 @@ public class Reply {
     @CreationTimestamp
     private LocalDateTime createDate;
 
-//    @Override
-//    public String toString() {
-//        return "Reply [id=" + id + ", content=" + content + ", board=" + board + ", user=" + user + ", createDate="
-//                + createDate + "]";
-//    }
 
 }
