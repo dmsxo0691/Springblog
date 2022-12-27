@@ -1,4 +1,4 @@
-<h1 align="center">SpringBoot - Siwol's Shop</h1>
+<h1 align="center">SpringBoot - Siwol's Place</h1>
 <h3 align="center">나무처럼 묵묵히 자라나는 개발자, 박은태입니다.</h3>
 
 <p align="left"> <img src="https://komarev.com/ghpvc/?username=dmsxo0691&label=Profile%20views&color=0e75b6&style=flat" alt="dmsxo0691" /> </p>
