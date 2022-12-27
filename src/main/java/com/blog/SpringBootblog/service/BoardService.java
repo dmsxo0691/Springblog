@@ -1,4 +1,5 @@
 package com.blog.SpringBootblog.service;
+
 ;
 import com.blog.SpringBootblog.dto.ReplySaveRequestDto;
 import com.blog.SpringBootblog.model.Board;
@@ -29,20 +30,20 @@ public class BoardService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Board> writeList(Pageable pageable){
+    public Page<Board> writeList(Pageable pageable) {
         return boardRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
     public Board showWrite(Long id) {
         return boardRepository.findById(id)
-                .orElseThrow(()->{
+                .orElseThrow(() -> {
                     return new IllegalArgumentException("상세 보기 실패: 아이디를 찾을 수 없습니다.");
                 });
     }
 
     @Transactional
-    public void deleteWrite(Long id){
+    public void deleteWrite(Long id) {
         System.out.println("글 삭제" + id);
         boardRepository.deleteById(id);
     }
@@ -50,7 +51,7 @@ public class BoardService {
     @Transactional
     public void updateWrite(Long id, Board requestBoard) {
         Board board = boardRepository.findById(id)
-                .orElseThrow(()->{
+                .orElseThrow(() -> {
                     return new IllegalArgumentException("글 찾기 실패 : 아이디를 찾을 수 없습니다.");
                 });
         board.setTitle(requestBoard.getTitle());
@@ -58,9 +59,16 @@ public class BoardService {
     }
 
     @Transactional
-    public void writeReply(ReplySaveRequestDto replySaveRequestDto) {
-        int result = replyRepository.mSave(replySaveRequestDto.getUserId(), replySaveRequestDto.getBoardId(), replySaveRequestDto.getContent());
-        System.out.println("BoardService : "+result);
+    public void writeReply(User user, Long boardId, Reply requestReply) {
+
+        Board board = boardRepository.findById(boardId).orElseThrow(() -> {
+            return new IllegalArgumentException("댓글 쓰기 실패 : 게시글 id를 찾을 수 없습니다.");
+        }); // 영속화 완료;
+
+        requestReply.setUser(user);
+        requestReply.setBoard(board);
+
+        replyRepository.save(requestReply);
     }
 
     @Transactional
